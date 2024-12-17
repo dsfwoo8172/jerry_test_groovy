@@ -10,4 +10,17 @@ job('pratice-via-DSL') {
     triggers {
         scm('* * * * *')
     }
+
+    publishers {
+        post {
+            always {
+                dingtalk(
+                    robot: "4d1055b4-43e9-4536-b445-aa0b80d62c44"
+                    type: "MARKDOWN",
+                    title: "${JOB_NAME}",
+                    text: ["- 测试"]
+                )
+            }
+        }
+    }
 }
