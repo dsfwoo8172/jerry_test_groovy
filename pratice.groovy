@@ -1,24 +1,48 @@
+// def configureDingTalk(def project, String robotId, String robotName) {
+//     def properties = project / 'properties'
+//     def dingtalk = properties / 'io.jenkins.plugins.DingTalkJobProperty'
+//     dingtalk / 'notifierConfigs' / 'io.jenkins.plugins.DingTalkNotifierConfig' {
+//         delegate.with {
+//             raw(false)
+//             disabled(false)
+//             checked(true)
+//             robotId(robotId)
+//             robotName(robotName)
+//             atAll(false)
+//             atMobile('')
+//             content('executed the deployment of a ${PROJECT_NAME} project. (TEST MESSAGE)\n\nURL: ${JOB_URL}')
+//             message('')
+//         }
+//         noticeOccasions {
+//             string('SUCCESS')
+//             string('FAILURE')
+//         }
+//     }
+// }
+
 def configureDingTalk(def project, String robotId, String robotName) {
     def properties = project / 'properties'
-    def dingtalk = properties / 'io.jenkins.plugins.DingTalkJobProperty'
-    dingtalk / 'notifierConfigs' / 'io.jenkins.plugins.DingTalkNotifierConfig' {
-        delegate.with {
-            raw(false)
-            disabled(false)
-            checked(true)
-            robotId(robotId)
-            robotName(robotName)
-            atAll(false)
-            atMobile('')
-            content('executed the deployment of a ${PROJECT_NAME} project. (TEST MESSAGE)\n\nURL: ${JOB_URL}')
-            message('')
-        }
-        noticeOccasions {
-            string('SUCCESS')
-            string('FAILURE')
+    def dingtalk = properties / 'io.jenkins.plugins.DingTalkJobProperty' {
+        notifierConfigs {
+            'io.jenkins.plugins.DingTalkNotifierConfig' {
+                raw(false)
+                disabled(false)
+                checked(true)
+                robotId(robotId)
+                robotName(robotName)
+                atAll(false)
+                atMobile('')
+                content('executed the deployment of a ${PROJECT_NAME} project. (TEST MESSAGE)\n\nURL: ${JOB_URL}')
+                message('')
+                noticeOccasions {
+                    string('SUCCESS')
+                    string('FAILURE')
+                }
+            }
         }
     }
 }
+
 
 job('pratice-via-DSL') {
     steps {
