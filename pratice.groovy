@@ -55,7 +55,7 @@ job('pratice-via-DSL') {
 // }
 
 
-job('example-job') {
+job('robot-notification') {
     description('')
     keepDependencies(false)
     configure { project ->
@@ -82,8 +82,22 @@ job('example-job') {
     scm {
         // No SCM configured
     }
+    canRoam(true)
+    disabled(false)
+    blockBuildWhenDownstreamBuilding(false)
+    blockBuildWhenUpstreamBuilding(false)
+    triggers {
+        // No triggers configured
+    }
+    concurrentBuild(false)
     steps {
-        shell('echo "Testing..."')
+        shell('echo \'Testing...\'')
         shell('echo ${BUILD_NUMBER}')
+    }
+    publishers {
+        // No publishers configured
+    }
+    buildWrappers {
+        // No build wrappers configured
     }
 }
