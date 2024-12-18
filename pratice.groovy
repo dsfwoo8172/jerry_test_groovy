@@ -82,7 +82,6 @@ job('robot-notification') {
     scm {
         // No SCM configured
     }
-    canRoam(true)
     disabled(false)
     blockBuildWhenDownstreamBuilding(false)
     blockBuildWhenUpstreamBuilding(false)
