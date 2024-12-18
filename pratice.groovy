@@ -94,10 +94,4 @@ job('robot-notification') {
         shell('echo \'Testing...\'')
         shell('echo ${BUILD_NUMBER}')
     }
-    publishers {
-        // No publishers configured
-    }
-    buildWrappers {
-        // No build wrappers configured
-    }
 }
