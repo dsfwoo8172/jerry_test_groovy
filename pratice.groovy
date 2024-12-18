@@ -57,7 +57,6 @@ job('pratice-via-DSL') {
 //         // No build wrappers configured
 //     }
 // }
-
 job('robot-notification') {
     description('')
     keepDependencies(false)
@@ -82,22 +81,8 @@ job('robot-notification') {
             }
         }
     }
-    scm {
-        // No SCM configured
-    }
-    disabled(false)
-    triggers {
-        // No triggers configured
-    }
-    concurrentBuild(false)
     steps {
         shell('echo \'Testing...\'')
         shell('echo ${BUILD_NUMBER}')
-    }
-    publishers {
-        // No publishers configured
-    }
-    wrappers {
-        // No wrappers configured
     }
 }
