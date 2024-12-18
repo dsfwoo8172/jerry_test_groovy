@@ -12,14 +12,56 @@ job('pratice-via-DSL') {
     }
 }
 
-job('robot-notification') {
+// job('robot-notification') {
+//     description('')
+//     keepDependencies(false)
+//     properties {
+//         // DingTalk plugin configuration
+//         dingtalkJobProperty {
+//             notifierConfigs {
+//                 dingtalkNotifierConfig {
+//                     raw(false)
+//                     disabled(false)
+//                     checked(true)
+//                     robotId('4d1055b4-43e9-4536-b445-aa0b80d62c44')
+//                     robotName('浪Live小幫手(測試)@機器人')
+//                     atAll(false)
+//                     atMobile('')
+//                     content('executed the deployment of a ${PROJECT_NAME} project. (TEST MESSAGE)\n\nURL: ${JOB_URL}')
+//                     message('')
+//                     noticeOccasions(['SUCCESS', 'FAILURE'])
+//                 }
+//             }
+//         }
+//     }
+//     scm {
+//         // No SCM configured
+//     }
+//     canRoam(true)
+//     disabled(false)
+//     blockBuildWhenDownstreamBuilding(false)
+//     blockBuildWhenUpstreamBuilding(false)
+//     concurrentBuild(false)
+//     steps {
+//         shell('echo "Testing..."')
+//         shell('echo ${BUILD_NUMBER}')
+//     }
+//     // publishers {
+//     //     // No publishers configured
+//     // }
+//     // buildWrappers {
+//     //     // No build wrappers configured
+//     // }
+// }
+
+
+job('example-job') {
     description('')
     keepDependencies(false)
-    properties {
-        // DingTalk plugin configuration
-        dingtalkJobProperty {
+    configure { project ->
+        project / 'properties' / 'io.jenkins.plugins.DingTalkJobProperty' {
             notifierConfigs {
-                dingtalkNotifierConfig {
+                'io.jenkins.plugins.DingTalkNotifierConfig' {
                     raw(false)
                     disabled(false)
                     checked(true)
@@ -29,7 +71,10 @@ job('robot-notification') {
                     atMobile('')
                     content('executed the deployment of a ${PROJECT_NAME} project. (TEST MESSAGE)\n\nURL: ${JOB_URL}')
                     message('')
-                    noticeOccasions(['SUCCESS', 'FAILURE'])
+                    noticeOccasions {
+                        string('SUCCESS')
+                        string('FAILURE')
+                    }
                 }
             }
         }
@@ -37,19 +82,8 @@ job('robot-notification') {
     scm {
         // No SCM configured
     }
-    canRoam(true)
-    disabled(false)
-    blockBuildWhenDownstreamBuilding(false)
-    blockBuildWhenUpstreamBuilding(false)
-    concurrentBuild(false)
     steps {
         shell('echo "Testing..."')
         shell('echo ${BUILD_NUMBER}')
     }
-    // publishers {
-    //     // No publishers configured
-    // }
-    // buildWrappers {
-    //     // No build wrappers configured
-    // }
 }
