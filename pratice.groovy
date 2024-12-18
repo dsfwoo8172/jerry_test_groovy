@@ -57,37 +57,34 @@ job('pratice-via-DSL') {
 //         // No build wrappers configured
 //     }
 // }
-job('robot-notification') {
+job('example-job') {
     description('')
-    keepDependencies(false)
     
-    // 使用 properties 方法來配置 DingTalk
-    properties {
-        configure { node ->
-            node << 'io.jenkins.plugins.DingTalkJobProperty' {
-                notifierConfigs {
-                    'io.jenkins.plugins.DingTalkNotifierConfig' {
-                        raw(false)
-                        disabled(false)
-                        checked(true)
-                        robotId('4d1055b4-43e9-4536-b445-aa0b80d62c44')
-                        robotName('浪Live小幫手(測試)@機器人')
-                        atAll(false)
-                        atMobile('')
-                        content('executed the deployment of a ${PROJECT_NAME} project. (TEST MESSAGE)\n\nURL: ${JOB_URL}')
-                        message('')
-                        noticeOccasions {
-                            string('SUCCESS')
-                            string('FAILURE')
-                        }
-                    }
-                }
+    // 使用 delegate 來避免命名衝突
+    configure { project ->
+        def properties = project / 'properties'
+        def dingtalk = properties / 'io.jenkins.plugins.DingTalkJobProperty'
+        dingtalk / 'notifierConfigs' / 'io.jenkins.plugins.DingTalkNotifierConfig' {
+            delegate.with {
+                raw(false)
+                disabled(false)
+                checked(true)
+                robotId('4d1055b4-43e9-4536-b445-aa0b80d62c44')
+                robotName('浪Live小幫手(測試)@機器人')
+                atAll(false)
+                atMobile('')
+                content('executed the deployment of a ${PROJECT_NAME} project. (TEST MESSAGE)\n\nURL: ${JOB_URL}')
+                message('')
+            }
+            noticeOccasions {
+                string('SUCCESS')
+                string('FAILURE')
             }
         }
     }
     
     steps {
-        shell('echo \'Testing...\'')
+        shell('echo "Testing..."')
         shell('echo ${BUILD_NUMBER}')
     }
 }
