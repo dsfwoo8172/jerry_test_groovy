@@ -15,11 +15,10 @@ job('pratice-via-DSL') {
 // job('robot-notification') {
 //     description('')
 //     keepDependencies(false)
-//     properties {
-//         // DingTalk plugin configuration
-//         dingtalkJobProperty {
+//     configure { project ->
+//         project / 'properties' / 'io.jenkins.plugins.DingTalkJobProperty' {
 //             notifierConfigs {
-//                 dingtalkNotifierConfig {
+//                 'io.jenkins.plugins.DingTalkNotifierConfig' {
 //                     raw(false)
 //                     disabled(false)
 //                     checked(true)
@@ -29,7 +28,10 @@ job('pratice-via-DSL') {
 //                     atMobile('')
 //                     content('executed the deployment of a ${PROJECT_NAME} project. (TEST MESSAGE)\n\nURL: ${JOB_URL}')
 //                     message('')
-//                     noticeOccasions(['SUCCESS', 'FAILURE'])
+//                     noticeOccasions {
+//                         string('SUCCESS')
+//                         string('FAILURE')
+//                     }
 //                 }
 //             }
 //         }
@@ -37,23 +39,24 @@ job('pratice-via-DSL') {
 //     scm {
 //         // No SCM configured
 //     }
-//     canRoam(true)
 //     disabled(false)
 //     blockBuildWhenDownstreamBuilding(false)
 //     blockBuildWhenUpstreamBuilding(false)
+//     triggers {
+//         // No triggers configured
+//     }
 //     concurrentBuild(false)
 //     steps {
-//         shell('echo "Testing..."')
+//         shell('echo \'Testing...\'')
 //         shell('echo ${BUILD_NUMBER}')
 //     }
-//     // publishers {
-//     //     // No publishers configured
-//     // }
-//     // buildWrappers {
-//     //     // No build wrappers configured
-//     // }
+//     publishers {
+//         // No publishers configured
+//     }
+//     buildWrappers {
+//         // No build wrappers configured
+//     }
 // }
-
 
 job('robot-notification') {
     description('')
@@ -83,8 +86,6 @@ job('robot-notification') {
         // No SCM configured
     }
     disabled(false)
-    blockBuildWhenDownstreamBuilding(false)
-    blockBuildWhenUpstreamBuilding(false)
     triggers {
         // No triggers configured
     }
